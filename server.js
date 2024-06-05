@@ -10,7 +10,7 @@ const PORT = process.env.API_PORT
 const app = express()
 app.use(express.json())
 
-app.get('/welcome', (req, res) => {
+app.get('/welcome', auth, (req, res) => {
   res.status(200).send('Welcome 🙌  ')
 })
 
