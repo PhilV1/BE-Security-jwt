@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 import 'dotenv/config'
 
 const auth = (req, res, next) => {
-  const token = req.body.token || req.query.token
+  let token = req.body.token || req.query.token
 
   if (req.headers.authorization) {
     token = req.headers.authorization.split(' ')[1]

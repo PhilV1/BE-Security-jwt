@@ -10,8 +10,14 @@ const PORT = process.env.API_PORT
 const app = express()
 app.use(express.json())
 
-app.get('/welcome', auth, (req, res) => {
-  res.status(200).send('Welcome 🙌  ')
+app.get('/welcome', auth, async (req, res) => {
+  const token = req.query.token || req.body.token
+  if (token) {
+    const user = await User.findOne({ token: token })
+    res.status(200).send(`Welcome ${user.first_name} 🙌  `)
+  } else {
+    res.status(200).send(`Welcome  🙌  `)
+  }
 })
 
 app.post('/register', async (req, res) => {
