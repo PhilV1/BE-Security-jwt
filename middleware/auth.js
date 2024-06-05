@@ -2,11 +2,8 @@ import jwt from 'jsonwebtoken'
 import 'dotenv/config'
 
 const auth = (req, res, next) => {
-  let token = req.body.token || req.query.token
-
-  if (req.headers.authorization) {
-    token = req.headers.authorization.split(' ')[1]
-  }
+  let token =
+    req.body.token || req.query.token || req.headers.authorization.split(' ')[1]
 
   if (!token) {
     return res.status(403).send('A token is required for authentication')

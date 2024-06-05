@@ -11,7 +11,8 @@ const app = express()
 app.use(express.json())
 
 app.get('/welcome', auth, async (req, res) => {
-  const token = req.query.token || req.body.token
+  const token =
+    req.query.token || req.body.token || req.headers.authorization.split(' ')[1]
   if (token) {
     const user = await User.findOne({ token: token })
     res.status(200).send(`Welcome ${user.first_name} 🙌  `)
